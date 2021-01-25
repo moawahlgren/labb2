@@ -3,46 +3,58 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package cardutils;
 
-/**
- *
- * @author moawahlgren
- */
-public class Deck {
-    
-    //Aggregat av cards
-    
-    private Card[] theDeck;
-    private int nrOfCards;
+import java.util.ArrayList;
 
-    public Deck() {
-    theDeck = new Card[52];
 
-    //create the 52 individual cards  
-    }    
 
-    public int getSize(){
-        return 1;
-    }
-    
-    public Card dealCard(Card c){
-        return c;
-    }
-    
-    public void shuffleCards(){
-        
-    }
-    
-    public void fill(){
-        
-    }
-    
-    @Override
-    public String toString(){
-        String info;
-        return info;
-    }
+public final class Deck {
+        private ArrayList<Card> theCards;
+
+        //Konstruktorn skapar listan (ArrayList) samt de 52 unika korten
+        //ska använda metoden fill 
+        public Deck() {
+            theCards = new ArrayList<>();
+            fill();
+            
+        } 
+
+        public int getSize(){
+            return 1;
+        }
+
+        public Card dealCard(Card c){
+            return c;
+        }
+
+        public void shuffleCards(){
+
+        }
+
+        public void fill(){
+            theCards.clear();
+           
+            for(Suit suit : Suit.values()){
+              for(Rank rank : Rank.values()){
+                 theCards.add(new Card(rank, suit));
+                }
+            }
+
+        }
+
+      
+        //@Override
+        public String toString(){
+            //StringBuilder builder = new StringBuilder();
+            String info;
+            for(int i = 0; i < theCards.size(); i++){
+                info += "  " + 
+            }
+            return info;
+        }
+
 
     
 }
