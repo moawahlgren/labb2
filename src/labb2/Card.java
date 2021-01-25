@@ -15,6 +15,8 @@ public class Card implements Comparable<Card>{
 		this.rank = rank;
 		this.suit = suit;
 	}
+	
+	int jaha = 1;
 
 	public Rank getRank() {
 		return rank;
