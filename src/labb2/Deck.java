@@ -1,20 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cardutils;
 
 import java.util.ArrayList;
 
 
 
+
+
 public final class Deck {
         private ArrayList<Card> theCards;
 
-        //Konstruktorn skapar listan (ArrayList) samt de 52 unika korten
-        //ska använda metoden fill 
+
         public Deck() {
             theCards = new ArrayList<>();
             fill();
@@ -45,16 +40,18 @@ public final class Deck {
         }
 
       
-        //@Override
+        @Override
         public String toString(){
-            //StringBuilder builder = new StringBuilder();
-            String info;
+            String info = " ";
             for(int i = 0; i < theCards.size(); i++){
-                info += "  " + 
+                Card c = theCards.get(i);
+                info += c.toShortString();
+                info += "  ";
+                if( i % 4 == 0){
+                    info += '\n';
+                }
             }
             return info;
         }
 
-
-    
 }
