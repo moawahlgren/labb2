@@ -1,9 +1,7 @@
+
 package cardutils;
 
 import java.util.ArrayList;
-
-
-
 
 
 public final class Deck {
@@ -17,10 +15,11 @@ public final class Deck {
         } 
 
         public int getSize(){
-            return 1;
+            return theCards.size();
         }
 
         public Card dealCard(Card c){
+            c = theCards.get(theCards.size());
             return c;
         }
 
@@ -47,7 +46,7 @@ public final class Deck {
                 Card c = theCards.get(i);
                 info += c.toShortString();
                 info += "  ";
-                if( i % 4 == 0){
+                if( i % 13 == 0 && i != 0){
                     info += '\n';
                 }
             }
