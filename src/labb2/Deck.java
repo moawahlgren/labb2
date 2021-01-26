@@ -1,7 +1,7 @@
-
 package cardutils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public final class Deck {
@@ -24,7 +24,7 @@ public final class Deck {
         }
 
         public void shuffleCards(){
-
+            Collections.shuffle(theCards);
         }
 
         public void fill(){
