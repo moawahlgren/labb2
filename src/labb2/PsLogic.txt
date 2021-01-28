@@ -78,7 +78,13 @@ public class PsLogic implements IPsLogic {
 
     @Override
     public List<Pile> getPiles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Pile> copy = new ArrayList<Pile>() {};
+        copy.add(firstPile);
+        copy.add(secondPile);
+        copy.add(thirdPile);
+        copy.add(fourthPile);
+        copy.add(fifthPile);
+        return copy;
     }
 
     @Override
