@@ -71,6 +71,8 @@ public class PsUserInterface {
     
     public void reset() {
         logic.initNewGame(); 
+
+    }
   
   
   
@@ -80,18 +82,31 @@ public class PsUserInterface {
         // Kanske också visa poäng eller pokercombo för full pile? 
             ArrayList<Pile> listOfPiles = logic.getPiles();
             
+              
             for(int i=0; i < listOfPiles.size(); i++) {
                 Pile thisPile = listOfPiles.get(i);
     
                 System.out.println("Pile " + (i+1) + ": " + thisPile);
+                if(thisPile.getSize() == 5) {
+                    System.out.println(PokerHands.getPokerCombo(thisPile));
+                }
                 
             }
+            System.out.println("Total points so far: " + logic.getPoints());
     }
     
     public void makeMove(int index) {
-        logic.addCardToPile(index); 
-        //5 piles kommer vara i en array så att vi kan skicka in index på den 
-        //pile som vi vill lägga kortet i? Eftersom addCardToPile tar ett int?
+        ArrayList<Pile> listOfPiles = logic.getPiles();
+        Pile thisPile = listOfPiles.get(index); 
+        if (thisPile.getSize() < 5) {
+            
+            logic.addCardToPile(index); 
+            
+        }
+        
+        else {
+            System.out.println("Pile " + (index+1) + " is full!\n");
+        }
     }
     
     public void printMenu() {
@@ -105,3 +120,5 @@ public class PsUserInterface {
         System.out.println("X Exit"); 
         System.out.println("----------"); 
     }
+
+}
