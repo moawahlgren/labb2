@@ -1,7 +1,9 @@
 package psmodel;
 
 import cardutils.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 
 /**
@@ -11,57 +13,38 @@ import java.util.List;
 public class PsLogic implements IPsLogic {
     
     private Card nextCard;
-    Pile firstPile = new Pile();
-    Pile secondPile = new Pile();
-    Pile thirdPile = new Pile();
-    Pile fourthPile = new Pile();
-    Pile fifthPile = new Pile();
+    private ArrayList<Pile> thePiles;
     Deck deck;
     
-    
-    @Override
     public void initNewGame(){
         deck = new Deck();
         deck.shuffleCards();
-        firstPile.clear();
-        secondPile.clear();
-        thirdPile.clear();
-        fourthPile.clear();
-        fifthPile.clear();
+        Pile pilezero = new Pile(); 
+        Pile pileone = new Pile(); 
+        Pile piletwo = new Pile(); 
+        Pile pilethree = new Pile(); 
+        Pile pilefour = new Pile(); 
+        thePiles = new ArrayList<>(5); 
+        thePiles.add(pilezero); 
+        thePiles.add(pileone);
+        thePiles.add(piletwo); 
+        thePiles.add(pilethree); 
+        thePiles.add(pilefour); 
     }
 
-    @Override
-    public Card pickNextCard() throws IllegalStateException {
-        if(nextCard.getRankValue() != 0 && nextCard.getSuitValue() != 0){
-            throw new IllegalStateException();
-        }
+
+    public Card pickNextCard() {
         nextCard = deck.dealCard();
         return nextCard;
     }
 
-    @Override
-    public void addCardToPile(int n) throws IllegalStateException {
-        if(n == 1){
-            firstPile.add(nextCard);
-        }
-        if(n == 2){
-            secondPile.add(nextCard);
-        }
-        if(n == 3){
-            thirdPile.add(nextCard);
-        }
-        if(n == 4){
-            fourthPile.add(nextCard);
-        }
-        if(n == 5){
-            fifthPile.add(nextCard);
-        }
-        else{
-            throw new IllegalStateException();
-        }
+    public void addCardToPile(int n) { 
+        Pile thisPile = thePiles.get(n); 
+        thisPile.add(nextCard);
+        
     }
 
-    @Override
+
     public boolean isGameOver() {
         boolean gameOver = false;
         if(getCardCount() == 25){
@@ -70,119 +53,50 @@ public class PsLogic implements IPsLogic {
         return gameOver;
     }
 
-    @Override
+
     public int getCardCount() {
-       int cardCount = this.firstPile.getSize() + this.secondPile.getSize() + this.thirdPile.getSize() + this.fourthPile.getSize() + this.fifthPile.getSize();
+        int cardCount = 0; 
+        for(int i=0; i<thePiles.size(); i++) {
+            Pile thisPile = thePiles.get(i);
+            cardCount += thisPile.getSize(); 
+        }
+       
        return cardCount;
     }
 
-    @Override
+
     public List<Pile> getPiles() {
-        List<Pile> copy = new ArrayList<Pile>() {};
-        copy.add(firstPile);
-        copy.add(secondPile);
-        copy.add(thirdPile);
-        copy.add(fourthPile);
-        copy.add(fifthPile);
-        return copy;
+        ArrayList<Pile> copy = (ArrayList<Pile>) thePiles.clone(); 
+      
+        return copy; 
     }
 
-    @Override
+ 
     public int getPoints() {
         int points = 0;
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.NONE){
-            points += 0;
-        }
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.PAIR){
-            points += 1;
-        }
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.TWO_PAIRS){
-            points += 3;
-        }
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.THREE_OF_A_KIND){
-            points += 6;
-        }
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.FLUSH){
-            points += 5;
-        }
-        if(PokerHands.getPokerCombo(firstPile) == PokerCombo.FOUR_OF_A_KIND){
-            points += 16;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.NONE){
-            points += 0;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.PAIR){
-            points += 1;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.TWO_PAIRS){
-            points += 3;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.THREE_OF_A_KIND){
-            points += 6;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.FLUSH){
-            points += 5;
-        }
-        if(PokerHands.getPokerCombo(secondPile) == PokerCombo.FOUR_OF_A_KIND){
-            points += 16;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.NONE){
-            points += 0;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.PAIR){
-            points += 1;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.TWO_PAIRS){
-            points += 3;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.THREE_OF_A_KIND){
-            points += 6;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.FLUSH){
-            points += 5;
-        }
-        if(PokerHands.getPokerCombo(thirdPile) == PokerCombo.FOUR_OF_A_KIND){
-            points += 16;
-        }
         
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.NONE){
-            points += 0;
-        }
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.PAIR){
-            points += 1;
-        }
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.TWO_PAIRS){
-            points += 3;
-        }
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.THREE_OF_A_KIND){
-            points += 6;
-        }
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.FLUSH){
-            points += 5;
-        }
-        if(PokerHands.getPokerCombo(fourthPile) == PokerCombo.FOUR_OF_A_KIND){
-            points += 16;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.NONE){
-            points += 0;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.PAIR){
-            points += 1;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.TWO_PAIRS){
-            points += 3;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.THREE_OF_A_KIND){
-            points += 6;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.FLUSH){
-            points += 5;
-        }
-        if(PokerHands.getPokerCombo(fifthPile) == PokerCombo.FOUR_OF_A_KIND){
-            points += 16;
+        for(int i=0; i<thePiles.size(); i++) {
+            Pile thisPile = thePiles.get(i); 
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.NONE) {
+                points += 0;
+            }
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.PAIR) {
+                points += 1; 
+            }
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.TWO_PAIRS) {
+                points += 3; 
+            }
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.THREE_OF_A_KIND) {
+                points += 6; 
+            }
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.FOUR_OF_A_KIND) {
+                points += 16;
+            }
+            if(PokerHands.getPokerCombo(thisPile) == PokerCombo.FLUSH) {
+                points += 5; 
+            }
         }
         return points;
     }
     
 }
-
