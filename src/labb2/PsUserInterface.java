@@ -17,7 +17,7 @@ import java.util.*;
 
 public class PsUserInterface {
     private final Scanner scan; 
-    private final PsLogic logic;
+    IPsLogic logic = new PsLogic(); 
     //Först ska kortet överst i kortleken visas för spelare
     //Spelare väljer en pile att flytta kortet till
     //Alla piles printas sedan ut och spelaren får välja
@@ -32,13 +32,14 @@ public class PsUserInterface {
     
     public PsUserInterface() {
         scan = new Scanner(System.in);
-        logic = new PsLogic();
+        
     }
     
     public void run() {
         
         logic.initNewGame();
         char choice = ' ';
+        boolean isOver = false; 
         // Behövs arraylist som vi kan fylla med kopiorna via getPiles?
         String answer; 
         System.out.println("Welcome! Let's play poker squares. Make a choice from the menu.");
@@ -55,6 +56,7 @@ public class PsUserInterface {
             answer = scan.nextLine(); 
             answer = answer.toUpperCase(); 
             choice = answer.charAt(0); //first character
+            isOver = logic.isGameOver(); 
             
             switch(choice) {
                 case 'A': makeMove(0); printPiles(); break; 
@@ -66,7 +68,7 @@ public class PsUserInterface {
                 case 'X': System.out.println("Bye, bye!"); break; 
                 default: System.out.println("Unknown command");
             } 
-        } while(choice != 'X');
+        } while(choice != 'X' && isOver == false);
     }
     
     public void reset() {
@@ -80,7 +82,7 @@ public class PsUserInterface {
     public void printPiles() {
         //Printar ut namnen på piles (typ pile A) etc och innehåll
         // Kanske också visa poäng eller pokercombo för full pile? 
-            ArrayList<Pile> listOfPiles = logic.getPiles();
+            List<Pile> listOfPiles = logic.getPiles();
             
               
             for(int i=0; i < listOfPiles.size(); i++) {
@@ -96,7 +98,7 @@ public class PsUserInterface {
     }
     
     public void makeMove(int index) {
-        ArrayList<Pile> listOfPiles = logic.getPiles();
+        List<Pile> listOfPiles = logic.getPiles();
         Pile thisPile = listOfPiles.get(index); 
         if (thisPile.getSize() < 5) {
             

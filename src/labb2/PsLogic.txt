@@ -13,7 +13,7 @@ import java.util.*;
 public class PsLogic implements IPsLogic {
     
     private Card nextCard;
-    private ArrayList<Pile> thePiles;
+    private List<Pile> thePiles;
     Deck deck;
     
     public void initNewGame(){
@@ -66,7 +66,7 @@ public class PsLogic implements IPsLogic {
 
 
     public List<Pile> getPiles() {
-        ArrayList<Pile> copy = (ArrayList<Pile>) thePiles.clone(); 
+        List<Pile> copy = new ArrayList<>(thePiles); 
       
         return copy; 
     }

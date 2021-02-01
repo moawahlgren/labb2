@@ -34,13 +34,13 @@ public class PokerHands {
                 //Removear dessa kort och letar sedan efter fler par genom att använda nrOfRank
                 //Hittar den då en trea, returnera triss istället, hittar den två, returnera två par
                 //Annars bara returnera par 
-                for(int j=0; j < 5; j++) {
+                for(int j=0; j < hand.getSize(); j++) {
                     Card c = hand.get(j); 
                     if(c.getRank() == Rank.values()[i]) {
                         hand.remove(c); 
                     }
                 }
-                for(int k=0; k < 13; i++) {
+                for(int k=0; k < 13; k++) {
                     int nrOfThatRank = hand.nrOfRank(Rank.values()[k]); 
                     
                     if(nrOfThatRank == 2) {
