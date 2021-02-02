@@ -3,12 +3,11 @@ package psmodel;
 import cardutils.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 
 /**
  *
- * @author sarar
+ * @author SaraRoempke & MoaWahlgren
  */
 public class PsLogic implements IPsLogic {
     
@@ -16,6 +15,7 @@ public class PsLogic implements IPsLogic {
     private List<Pile> thePiles;
     Deck deck;
     
+    @Override
     public void initNewGame(){
         deck = new Deck();
         deck.shuffleCards();
@@ -29,22 +29,32 @@ public class PsLogic implements IPsLogic {
         thePiles.add(pileone);
         thePiles.add(piletwo); 
         thePiles.add(pilethree); 
-        thePiles.add(pilefour); 
+        thePiles.add(pilefour);
+        nextCard = null;
     }
 
-
-    public Card pickNextCard() {
+    @Override
+    public Card pickNextCard() throws IllegalStateException {
+        if(nextCard != null){
+            throw new IllegalStateException();
+        }
         nextCard = deck.dealCard();
         return nextCard;
     }
 
-    public void addCardToPile(int n) { 
+    @Override
+    public void addCardToPile(int n) throws IllegalStateException { 
+        if(nextCard == null){
+            throw new IllegalStateException();
+        }
+        
         Pile thisPile = thePiles.get(n); 
         thisPile.add(nextCard);
+        nextCard = null;
         
     }
 
-
+    @Override
     public boolean isGameOver() {
         boolean gameOver = false;
         if(getCardCount() == 25){
@@ -53,7 +63,7 @@ public class PsLogic implements IPsLogic {
         return gameOver;
     }
 
-
+    @Override
     public int getCardCount() {
         int cardCount = 0; 
         for(int i=0; i<thePiles.size(); i++) {
@@ -64,14 +74,14 @@ public class PsLogic implements IPsLogic {
        return cardCount;
     }
 
-
+    @Override
     public List<Pile> getPiles() {
-        List<Pile> copy = new ArrayList<>(thePiles); 
+        List<Pile> copy = new ArrayList<>(thePiles);  
       
         return copy; 
     }
 
- 
+    @Override
     public int getPoints() {
         int points = 0;
         
@@ -94,9 +104,10 @@ public class PsLogic implements IPsLogic {
             }
             if(PokerHands.getPokerCombo(thisPile) == PokerCombo.FLUSH) {
                 points += 5; 
-            }
+            }   
         }
         return points;
     }
     
 }
+
