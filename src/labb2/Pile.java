@@ -3,14 +3,13 @@ import java.util.*;
 
 /**
  *
- * @author moawahlgren
+ * @author SaraRoempke & MoaWahlgren
  */
 public class Pile {
-    private ArrayList<Card> pile;
+    private final ArrayList<Card> pile;
  
     public Pile() {
         pile = new ArrayList<>(); 
-        //Konstruktorffff
     }
     
     public int getSize() {
@@ -34,7 +33,7 @@ public class Pile {
     }
     
     public ArrayList getCards() {
-        //Ska returnera kopia av privata listan med kort
+        //Returnerar kopia av privata listan med kort
         ArrayList<Card> copy = (ArrayList<Card>) pile.clone(); 
         return copy; 
         
@@ -57,9 +56,7 @@ public class Pile {
     }
     
     public int nrOfSuit(Suit suit) {
-        //Ska returnera antalet kort som matchar denna suit 
-        //Bläddra igenom arraylist och plussa på nrOfSuits för varje "match"
-        //If Card.getSuit = suit blabla  för alla index i arraylist(pile)
+        //Returnerar antalet kort som matchar denna suit 
         int nrOfSuit = 0;
         int currentSize = getSize(); 
         for(int i=0; i<currentSize; i++) {
@@ -72,7 +69,7 @@ public class Pile {
     }
     
     public int nrOfRank(Rank rank) {
-        //Ska returnera antalet kort som matchar denna rank
+        //Returnerar antalet kort som matchar denna rank
         int nrOfRank = 0;
         int currentSize = getSize(); 
         for(int i=0; i<currentSize; i++) {
@@ -87,24 +84,21 @@ public class Pile {
     public void addSorted(Card c) {
         pile.add(c); 
         Collections.sort(pile);
-        //Ska lägga till ett kort och sortera korten i 
+        //lägger till ett kort och sortera korten i 
         //Pile-objektet enligt ordning definierad av Card.compareTo
     }
     
     @Override
     public String toString() {
         String info = ""; 
-        //Skriva ut info om alla kort i pile?? Finns redan string info för cards så kankse 
-        // bara hänvisa till alla kort på de index som finns i pile
         int currentSize = getSize(); 
         for(int i=0; i<currentSize; i++) {
             Card c = get(i); 
             info += c.toShortString(); 
-            info += '\n'; 
+            info += " "; 
         }
         return info; 
     }
 }
 
     
-}

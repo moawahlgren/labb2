@@ -2,10 +2,13 @@ package cardutils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+ *
+ * @author SaraRoempke & MoaWahlgren
+ */
 
 public final class Deck {
-        private ArrayList<Card> theCards;
+        private final ArrayList<Card> theCards;
 
 
         public Deck() {
@@ -18,8 +21,9 @@ public final class Deck {
             return theCards.size();
         }
 
-        public Card dealCard(Card c){
-            c = theCards.get(theCards.size());
+        public Card dealCard(){
+            Card c = theCards.get(theCards.size() - 1);
+            theCards.remove(c);
             return c;
         }
 
